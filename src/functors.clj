@@ -16,7 +16,12 @@
 (extend-type clojure.lang.PersistentList
   Functor
   (fmap [coll f]
-    (r/map f coll)))
+    (list* (into [] (r/map f coll)))))
+
+(extend-type clojure.lang.PersistentVector
+  Functor
+  (fmap [coll f]
+    (into [] (r/map f coll))))
 
 (deftype reader-f [v rf f]
   clojure.lang.IFn
